@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useAccount, useConfig, useReadContract } from "wagmi";
 import { readContract } from "wagmi/actions";
 import { formatEther, formatUnits } from "viem";
-import Header from "@/app/components/Header";
+import Header from "@/app/app/components/Header";
 import { ERC20_ABI } from "@/lib/abi/erc20";
 import { VAULT_ABI } from "@/lib/abi/vault";
 import { HALAL_SAVINGS_V2_ABI, CONTRACTS } from "@/contracts/config";

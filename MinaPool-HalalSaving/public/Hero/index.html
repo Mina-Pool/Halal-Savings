@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MinaPool Animation</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { 
+      width: 100%; 
+      height: 100%; 
+      overflow: hidden;
+      background: transparent;
+    }
+    body { 
+      font-family: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    }
+    #app { 
+      position: relative; 
+      width: 100%; 
+      height: 100vh; 
+      overflow: hidden; 
+      background: transparent;
+    }
+    canvas { 
+      display: block; 
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/p5.min.js"></script>
+  <script>
+    let sketch = (p) => {
+      let canvasWidth, canvasHeight;
+
+      p.setup = () => {
+        const app = document.getElementById('app');
+        if (!app) {
+          console.error('App element not found');
+          return;
+        }
+        
+        canvasWidth = app.clientWidth || window.innerWidth;
+        canvasHeight = app.clientHeight || window.innerHeight;
+        
+        p.createCanvas(canvasWidth, canvasHeight, p.WEBGL);
+        p.noFill();
+        p.stroke('#0052FF');
+        p.strokeWeight(4);
+      };
+
+      p.windowResized = () => {
+        const app = document.getElementById('app');
+        if (!app) return;
+        
+        canvasWidth = app.clientWidth || window.innerWidth;
+        canvasHeight = app.clientHeight || window.innerHeight;
+        
+        p.resizeCanvas(canvasWidth, canvasHeight);
+      };
+
+      p.draw = () => {
+        p.clear();
+        p.rotateX(p.frameCount * 0.01);
+        p.rotateY(p.frameCount * 0.01);
+        const s = Math.min(canvasWidth, canvasHeight) * 0.45;
+        p.box(s);
+      };
+    };
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        new p5(sketch, document.getElementById('app'));
+      });
+    } else {
+      new p5(sketch, document.getElementById('app'));
+    }
+  </script>
+</body>
+</html>

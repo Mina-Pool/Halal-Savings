@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAccount, useConfig, useWriteContract } from 'wagmi';
 import { readContract, waitForTransactionReceipt } from 'wagmi/actions';
 import { parseUnits, formatUnits } from 'viem';
-import Header from '@/app/components/Header';
+import Header from '@/app/app/components/Header';
 import { ERC20_ABI } from '@/lib/abi/erc20';
 import { HALAL_SAVINGS_ABI } from '@/lib/abi/halal-savings';
 
