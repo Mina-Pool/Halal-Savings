@@ -1,0 +1,23 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+.env*
+.env.local
+# pnpm/yarn/npm caches
+.pnpm-store/
+.npm/
+.yarn/
+# TypeScript
+*.tsbuildinfo
+# OS / Editor
+.DS_Store
+.vscode/
+# Foundry/Hardhat
+cache/
+artifacts/
+broadcast/
+# Misc
+coverage/
