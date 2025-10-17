@@ -11,18 +11,11 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { setMobileMenuOpen(false); }, [pathname]);
 
   const isActive = (path: string) => pathname === path;
 
-  // Prevent hydration mismatch
   if (!mounted) {
     return (
       <header className="sticky top-0 z-50 border-b border-line bg-white/80 backdrop-blur">
@@ -53,34 +46,28 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden gap-6 text-sm md:flex">
           <Link 
-            className={`transition-opacity ${
-              isActive('/app') 
-                ? 'opacity-100 font-semibold text-blueribbon' 
-                : 'opacity-70 hover:opacity-100'
-            }`}
+            className={`transition-opacity ${isActive('/app') ? 'opacity-100 font-semibold text-blueribbon' : 'opacity-70 hover:opacity-100'}`}
             href="/app"
           >
             Vaults
           </Link>
           <Link 
-            className={`transition-opacity ${
-              isActive('/app/savings') 
-                ? 'opacity-100 font-semibold text-blueribbon' 
-                : 'opacity-70 hover:opacity-100'
-            }`}
+            className={`transition-opacity ${isActive('/app/savings') ? 'opacity-100 font-semibold text-blueribbon' : 'opacity-70 hover:opacity-100'}`}
             href="/app/savings"
           >
             Savings Goals
           </Link>
           <Link 
-            className={`transition-opacity ${
-              isActive('/app/reports') 
-                ? 'opacity-100 font-semibold text-blueribbon' 
-                : 'opacity-70 hover:opacity-100'
-            }`}
+            className={`transition-opacity ${isActive('/app/reports') ? 'opacity-100 font-semibold text-blueribbon' : 'opacity-70 hover:opacity-100'}`}
             href="/app/reports"
           >
             Reports
+          </Link>
+          <Link 
+            className={`transition-opacity ${isActive('/app/faucet') ? 'opacity-100 font-semibold text-blueribbon' : 'opacity-70 hover:opacity-100'}`}
+            href="/app/faucet"
+          >
+            Faucet
           </Link>
         </nav>
         
@@ -89,10 +76,7 @@ export default function Header() {
           <ConnectButton 
             chainStatus="icon"
             showBalance={false}
-            accountStatus={{
-              smallScreen: 'avatar',
-              largeScreen: 'full',
-            }}
+            accountStatus={{ smallScreen: 'avatar', largeScreen: 'full' }}
           />
         </div>
 
@@ -120,42 +104,32 @@ export default function Header() {
           <nav className="mx-auto max-w-6xl px-5 py-4 space-y-3">
             <Link 
               href="/app"
-              className={`block px-4 py-2.5 rounded-lg text-sm transition ${
-                isActive('/app')
-                  ? 'bg-blueribbon text-white font-semibold'
-                  : 'hover:bg-slate'
-              }`}
+              className={`block px-4 py-2.5 rounded-lg text-sm transition ${isActive('/app') ? 'bg-blueribbon text-white font-semibold' : 'hover:bg-slate'}`}
             >
               Vaults
             </Link>
             <Link 
               href="/app/savings"
-              className={`block px-4 py-2.5 rounded-lg text-sm transition ${
-                isActive('/app/savings')
-                  ? 'bg-blueribbon text-white font-semibold'
-                  : 'hover:bg-slate'
-              }`}
+              className={`block px-4 py-2.5 rounded-lg text-sm transition ${isActive('/app/savings') ? 'bg-blueribbon text-white font-semibold' : 'hover:bg-slate'}`}
             >
               Savings Goals
             </Link>
             <Link 
               href="/app/reports"
-              className={`block px-4 py-2.5 rounded-lg text-sm transition ${
-                isActive('/app/reports')
-                  ? 'bg-blueribbon text-white font-semibold'
-                  : 'hover:bg-slate'
-              }`}
+              className={`block px-4 py-2.5 rounded-lg text-sm transition ${isActive('/app/reports') ? 'bg-blueribbon text-white font-semibold' : 'hover:bg-slate'}`}
             >
               Reports
             </Link>
-            
+            <Link 
+              href="/app/faucet"
+              className={`block px-4 py-2.5 rounded-lg text-sm transition ${isActive('/app/faucet') ? 'bg-blueribbon text-white font-semibold' : 'hover:bg-slate'}`}
+            >
+              Faucet
+            </Link>
+
             {/* Mobile Connect Button */}
             <div className="pt-3 border-t border-line">
-              <ConnectButton 
-                chainStatus="icon"
-                showBalance={false}
-                accountStatus="avatar"
-              />
+              <ConnectButton chainStatus="icon" showBalance={false} accountStatus="avatar" />
             </div>
           </nav>
         </div>
