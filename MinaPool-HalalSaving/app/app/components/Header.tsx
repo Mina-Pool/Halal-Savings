@@ -47,6 +47,7 @@ export default function Header() {
           <div className="hidden sm:block ml-2 px-2 py-0.5 text-xs font-medium bg-blueribbon/10 text-blueribbon rounded">
             Halal
           </div>
+          <h3>(Beta Sepolia)</h3>
         </Link>
 
         {/* Desktop Navigation */}

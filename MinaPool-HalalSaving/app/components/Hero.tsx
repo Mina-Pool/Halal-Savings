@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 const CONTRACT = "0x4D9744786215a495B38b6EC785F79E5d3EECC1E7";
-const BASESCAN = `https://basescan.org/address/${CONTRACT}`;
+const BASESCAN = `https://sepolia.basescan.org/address/${CONTRACT}`;
 
 export default function Hero() {
   const copy = async () => {
