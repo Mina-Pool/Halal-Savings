@@ -1,12 +1,27 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import './app/globals.css';
+import { minikitConfig } from "../minikit.config";
+import { Metadata } from "next";
 
-export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: "MinaPool — Halal Saving, On-Chain",
-  description: "Simple, transparent savings aligned with Sharia principles—your assets stay in your wallet on Base.",
-  openGraph: { images: ["/og-image.png"] },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: minikitConfig.miniapp.name,
+    description: minikitConfig.miniapp.description,
+    other: {
+      "fc:miniapp": JSON.stringify({
+        version: minikitConfig.miniapp.version,
+        imageUrl: minikitConfig.miniapp.heroImageUrl,
+        button: {
+          title: `Launch ${minikitConfig.miniapp.name}`,
+          action: {
+            name: `Launch ${minikitConfig.miniapp.name}`,
+            type: "launch_miniapp",
+          },
+        },
+      }),
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
