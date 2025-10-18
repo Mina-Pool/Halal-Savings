@@ -4,9 +4,9 @@ const ROOT_URL =
   "http://localhost:3000";
 
 const accountAssociation = {
-  header: process.env.NEXT_PUBLIC_ACCOUNT_ASSOCIATION_HEADER,
-  payload: process.env.NEXT_PUBLIC_ACCOUNT_ASSOCIATION_PAYLOAD,
-  signature: process.env.NEXT_PUBLIC_ACCOUNT_ASSOCIATION_SIGNATURE,
+  header: "eyJmaWQiOjEzNTU4NjYsInR5cGUiOiJhdXRoIiwia2V5IjoiMHgxNDlBODQxY0M3Mjc2NGUzNDhENDEyOTI2QTI3Rjg0YTRBYWZGOTU0In0",
+  payload: "eyJkb21haW4iOiJoYWxhbC1zYXZpbmdzLnZlcmNlbC5hcHAifQ",
+  signature: "S6zAX7OdIIoplAq7rLZDMCbo46sqkcztTe92RbSdHTQe3VRD3xOXJTuwcvc3TIsJoSPJ3CGEtJhScw/IPtuqQBw="
 }
 /**
  * MiniApp configuration object. Must follow the mini app manifest specification.
@@ -53,7 +53,7 @@ export const minikitConfig = {
     primaryCategory: "finance",
     splashBackgroundColor: "#0052FF",
     name: "MinaPool",
-    heroImageUrl: `${ROOT_URL}/blue-hero.png`, 
+    heroImageUrl: `${ROOT_URL}/blue-hero.png`,
   },
   baseBuilder: {
     allowedAddresses: ["0xf5F917D51418A167f24e141dD080cd2cf4a6C701"],
