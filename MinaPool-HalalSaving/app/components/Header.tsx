@@ -36,6 +36,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2">
           <Image src="/MinaPoolLogo.svg" alt="MinaPool" width={28} height={28} priority />
           <span className="text-lg md:text-xl font-semibold tracking-tight">MinaPool</span>
+          <h3>(Beta Sepolia)</h3>
         </Link>
 
         {/* Desktop */}
@@ -104,7 +105,7 @@ export default function Header() {
                   </div>
 
                   <Link
-                    href="/#about"
+                    href="#about"
                     onClick={() => setOpen(false)}
                     className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
                   >
@@ -112,7 +113,7 @@ export default function Header() {
                   </Link>
 
                   <Link
-                    href="/#mission"
+                    href="#mission"
                     onClick={() => setOpen(false)}
                     className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
                   >
@@ -120,7 +121,7 @@ export default function Header() {
                   </Link>
 
                   <Link
-                    href="/#security"
+                    href="#security"
                     onClick={() => setOpen(false)}
                     className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
                   >
@@ -130,7 +131,7 @@ export default function Header() {
 
                 {/* CTA */}
                 <Link
-                  href="/app"
+                  href="/#app"
                   onClick={() => setOpen(false)}
                   className="block w-full text-center p-4 bg-[#0052FF] text-white rounded-xl font-semibold"
                 >

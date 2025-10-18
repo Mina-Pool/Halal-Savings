@@ -23,6 +23,14 @@ type UserStats = {
   goalsCreated: bigint;
   goalsCompleted: bigint;
 };
+const GOAL_TYPES = [
+  "Hajj",
+  "Umrah",
+  "Qurban",
+  "Education",
+  "Wedding",
+  "General",
+];
 
 export default function ReportsPage() {
   const [mounted, setMounted] = useState(false);
@@ -36,6 +44,21 @@ export default function ReportsPage() {
 
   const [goalData, setGoalData] = useState<any>(null);
   const decimals = { asset: 6, iAsset: 18 };
+
+  const { data: assetDecimals } = useReadContract({
+    address: asset,
+    abi: ERC20_ABI,
+    functionName: "decimals",
+  });
+
+  const { data: vaultDecimals } = useReadContract({
+    address: vault,
+    abi: ERC20_ABI,
+    functionName: "decimals",
+  });
+
+  const ASSET_DECIMALS = (assetDecimals as number) ?? 6;
+  const VAULT_DECIMALS = (vaultDecimals as number) ?? 18;
 
   // Vault data
   const { data: sharePrice } = useReadContract({
@@ -71,13 +94,13 @@ export default function ReportsPage() {
   // Savings data
   const { data: tvl } = useReadContract({
     address: savings,
-    abi: HALAL_SAVINGS_V2_ABI, // ← Change to V2
+    abi: HALAL_SAVINGS_V2_ABI,
     functionName: "getTVL",
   });
 
   const { data: totalUsers } = useReadContract({
     address: savings,
-    abi: HALAL_SAVINGS_V2_ABI, // ← Change to V2
+    abi: HALAL_SAVINGS_V2_ABI,
     functionName: "getTotalUsers",
   });
 
@@ -94,14 +117,13 @@ export default function ReportsPage() {
     if (address) {
       await loadGoalData();
     }
-    // Force re-render by updating a dummy state
     setMounted(false);
     setTimeout(() => setMounted(true), 100);
   };
 
   const { data: profitEarned } = useReadContract({
     address: savings,
-    abi: HALAL_SAVINGS_V2_ABI, // ← Change to V2
+    abi: HALAL_SAVINGS_V2_ABI,
     functionName: "earned",
     args: [address ?? "0x0000000000000000000000000000000000000000"],
     query: { enabled: !!address },
@@ -112,10 +134,10 @@ export default function ReportsPage() {
     ? Number(formatEther(sharePrice as bigint)).toFixed(6)
     : "0";
   const formattedUsdcBalance = usdcBalance
-    ? Number(formatUnits(usdcBalance as bigint, 6)).toFixed(2)
+    ? Number(formatUnits(usdcBalance as bigint, ASSET_DECIMALS)).toFixed(2)
     : "0";
   const formattedIusdcBalance = iusdcBalance
-    ? Number(formatEther(iusdcBalance as bigint)).toFixed(4)
+    ? Number(formatUnits(iusdcBalance as bigint, VAULT_DECIMALS)).toFixed(4)
     : "0";
   const formattedMinaBalance = minaBalance
     ? Number(formatEther(minaBalance as bigint)).toFixed(2)
@@ -129,7 +151,7 @@ export default function ReportsPage() {
   const iusdcValueInUsdc =
     iusdcBalance && sharePrice
       ? (
-          Number(formatEther(iusdcBalance as bigint)) *
+          Number(formatUnits(iusdcBalance as bigint, VAULT_DECIMALS)) *
           Number(formatEther(sharePrice as bigint))
         ).toFixed(2)
       : "0";
@@ -141,23 +163,22 @@ export default function ReportsPage() {
     "targetAmount" in goalData &&
     goalData.targetAmount > 0n;
 
-  // Calculate progress using object properties
   const progress =
     hasGoal && goalData
       ? {
           goalType: Number(goalData.goalType || 0),
           name: goalData.customName || "My Goal",
           saved: Number(
-            formatUnits(goalData.totalSaved || 0n, decimals.iAsset)
+            formatUnits(goalData.totalSaved || 0n, VAULT_DECIMALS)
           ),
           target: Number(
-            formatUnits(goalData.targetAmount || 0n, decimals.iAsset)
+            formatUnits(goalData.targetAmount || 0n, VAULT_DECIMALS)
           ),
           percentage: Math.min(
             Math.round(
-              (Number(formatUnits(goalData.totalSaved || 0n, decimals.iAsset)) /
+              (Number(formatUnits(goalData.totalSaved || 0n, VAULT_DECIMALS)) /
                 Number(
-                  formatUnits(goalData.targetAmount || 0n, decimals.iAsset)
+                  formatUnits(goalData.targetAmount || 0n, VAULT_DECIMALS)
                 )) *
                 100
             ),
@@ -166,28 +187,24 @@ export default function ReportsPage() {
         }
       : null;
 
-  // Load goal data when address changes
-
   useEffect(() => {
     if (address) {
       loadGoalData();
     }
   }, [address]);
+
   const loadGoalData = async () => {
     if (!address) return;
 
     try {
-      // V2: Get all active goals (returns array)
       const goals = (await readContract(wagmiConfig, {
         address: savings,
-        abi: HALAL_SAVINGS_V2_ABI, // ← V2 ABI
-        functionName: "getActiveGoals", // ← V2 (plural)
+        abi: HALAL_SAVINGS_V2_ABI,
+        functionName: "getActiveGoals",
         args: [address],
       })) as object[];
 
       console.log("Active goals loaded:", goals);
-
-      // Set first active goal as the "active goal" for reports
       setGoalData(goals && goals.length > 0 ? goals[0] : null);
     } catch (err) {
       console.error("Error loading goals:", err);
@@ -195,29 +212,18 @@ export default function ReportsPage() {
   };
 
   const stats =
-    userStats && typeof userStats === "object"
-      ? {
-          deposited: Number(
-            formatUnits(
-              (userStats as UserStats).totalDeposited || 0n,
-              decimals.iAsset
-            )
-          ).toFixed(2),
-          withdrawn: Number(
-            formatUnits(
-              (userStats as UserStats).totalWithdrawn || 0n,
-              decimals.iAsset
-            )
-          ).toFixed(2),
-          streak: Number((userStats as UserStats).streakMonths || 0),
-          claimed: Number(
-            formatUnits(
-              (userStats as UserStats).profitShareClaimed || 0n,
-              decimals.iAsset
-            )
-          ).toFixed(2),
-        }
-      : { deposited: "0.00", withdrawn: "0.00", streak: 0, claimed: "0.00" };
+  userStats && Array.isArray(userStats) && userStats.length >= 5
+    ? {
+        deposited: Number(
+          formatUnits(userStats[0] || 0n, VAULT_DECIMALS)
+        ).toFixed(2),
+        withdrawn: Number(
+          formatUnits(userStats[1] || 0n, VAULT_DECIMALS)
+        ).toFixed(2),
+        streak: Number(userStats[2] || 0),
+        claimed: Number(formatEther(userStats[4] || 0n)).toFixed(2),
+      }
+    : { deposited: "0.00", withdrawn: "0.00", streak: 0, claimed: "0.00" };
 
   const unclaimedProfit = profitEarned
     ? Number(formatEther(profitEarned as bigint)).toFixed(4)
