@@ -7,12 +7,22 @@ import Header from "@/app/app/components/Header";
 import { ERC20_ABI } from "@/lib/abi/erc20";
 import { VAULT_ABI } from "@/lib/abi/vault";
 import { HALAL_SAVINGS_V2_ABI, CONTRACTS } from "@/contracts/config";
+import Link from "next/link";
 
 const vault = CONTRACTS.IUSDC_VAULT;
 const asset = CONTRACTS.MOCK_USDC;
 const savings = CONTRACTS.HALAL_SAVINGS_V2;
 const mina = CONTRACTS.MINA_TOKEN;
 
+type UserStats = {
+  totalDeposited: bigint;
+  totalWithdrawn: bigint;
+  streakMonths: bigint;
+  lastDepositTime: bigint;
+  profitShareClaimed: bigint;
+  goalsCreated: bigint;
+  goalsCompleted: bigint;
+};
 const GOAL_TYPES = [
   "Hajj",
   "Umrah",
@@ -33,6 +43,7 @@ export default function ReportsPage() {
   const wagmiConfig = useConfig();
 
   const [goalData, setGoalData] = useState<any>(null);
+  const decimals = { asset: 6, iAsset: 18 };
 
   const { data: assetDecimals } = useReadContract({
     address: asset,
@@ -191,7 +202,7 @@ export default function ReportsPage() {
         abi: HALAL_SAVINGS_V2_ABI,
         functionName: "getActiveGoals",
         args: [address],
-      })) as any[];
+      })) as object[];
 
       console.log("Active goals loaded:", goals);
       setGoalData(goals && goals.length > 0 ? goals[0] : null);
@@ -502,14 +513,14 @@ export default function ReportsPage() {
             <section>
               <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <a
+                <Link
                   href="/"
                   className="card p-5 hover:shadow-lg transition-shadow"
                 >
                   <div className="text-2xl mb-2">💵</div>
                   <div className="font-semibold mb-1">Deposit USDC</div>
                   <div className="text-xs opacity-70">Convert to iUSDC</div>
-                </a>
+                </Link>
 
                 <a
                   href="/savings"
