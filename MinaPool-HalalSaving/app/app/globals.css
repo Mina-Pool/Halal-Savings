@@ -51,3 +51,15 @@ body { background: var(--bg); color: var(--fg); font-feature-settings: "ss01" on
 .input {
   @apply px-4 py-2 border-2 border-line rounded-lg focus:border-blueribbon focus:outline-none;
 }
+
+@layer utilities {
+  @media (max-width: 768px) {
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

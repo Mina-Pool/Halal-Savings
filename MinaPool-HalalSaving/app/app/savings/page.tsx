@@ -8,6 +8,7 @@ import Header from "@/app/app/components/Header";
 import { ERC20_ABI } from "@/lib/abi/erc20";
 import { HALAL_SAVINGS_V2_ABI, CONTRACTS } from "@/contracts/config";
 import { VAULT_ABI } from "@/lib/abi/vault";
+import { useSearchParams } from 'next/navigation';
 
 const ZERO_ADDR = "0x0000000000000000000000000000000000000000";
 
@@ -86,9 +87,28 @@ export default function SavingsPageV2() {
 
   const [mounted, setMounted] = useState(false);
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+  const qpGoal = searchParams?.get('goal');     // hajj | umrah | education | wedding | qurban | general
+  const qpView  = searchParams?.get('view');    // dashboard | create | deposit
+
+  if (qpView === 'create' || qpView === 'deposit' || qpView === 'dashboard') {
+    setView(qpView as typeof view);
+  }
+
+  if (qpGoal) {
+    const map: Record<string, number> = {
+      hajj: 0, umrah: 1, qurban: 2, education: 3, wedding: 4, general: 5
+    };
+    const idx = map[qpGoal.toLowerCase()];
+    if (typeof idx === 'number') setSelectedGoalType(idx);
+  }
+}, [searchParams]);
 
   const [view, setView] = useState<"dashboard" | "create" | "deposit">(
     "dashboard"
