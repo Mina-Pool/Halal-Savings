@@ -85,7 +85,7 @@ export default function Hero() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
               href="/app"
-              className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold"
+              className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold hover:opacity-50"
               style={{ backgroundColor: BLUE, color: WHITE, border: `1px solid ${BLUE}` }}
             >
               Launch App
@@ -97,6 +97,14 @@ export default function Hero() {
               style={{ backgroundColor: WHITE, color: BLUE, border: `1px solid ${BLUE}` }}
             >
               How It Works ↓
+            </Link>
+
+            <Link
+              href="https://minapool.gitbook.io/minapool-docs/"
+              className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold hover:opacity-50"
+              style={{ backgroundColor: WHITE, color: BLUE, border: `1px solid ${BLUE}` }}
+            >
+              Learn More
             </Link>
           </div>
 

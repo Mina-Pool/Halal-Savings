@@ -14,12 +14,28 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             <a
+              href="https://minapool.gitbook.io/minapool-docs/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-white hover:opacity-80 underline-offset-4 hover:underline"
+            >
+              Documentation
+            </a>
+            <a
               href="https://github.com/Mina-Pool"
               target="_blank"
               rel="noreferrer"
               className="text-sm text-white hover:opacity-80 underline-offset-4 hover:underline"
             >
               GitHub
+            </a>
+            <a
+              href="https://minapool.gitbook.io/minapool-docs/legal-disclaimer"
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-white hover:opacity-80 underline-offset-4 hover:underline"
+            >
+              Disclaimer
             </a>
             <Link
               href="/app"
