@@ -118,10 +118,10 @@ Built on **Base** (Ethereum Layer 2) for ultra-low fees and powered by the **Mud
 
 | Contract | Address | Description |
 |----------|---------|-------------|
-| **HalalSavingsVaultV2** | [`0xc11Bdc4D5625687F1c3d8A7f803adf9AbB5be67e`](https://sepolia.basescan.org/address/0xc11Bdc4D5625687F1c3d8A7f803adf9AbB5be67e) | Main ERC-4626 vault |
+| **HalalSavingsVaultV2** | [`0xc11Bdc4D5625687F1c3d8A7f803adf9AbB5be67e`](https://sepolia.basescan.org/address/0xc11Bdc4D5625687F1c3d8A7f803adf9AbB5be67e) | Main ERC-4626 vault(ongoing) |
 | **MockUSDC** | `0xbCC114F1903F36637f977B282fBbd490DB7E43eE` | Test USDC for testnet |
 | **MUSDCFaucet** | `0x5ad2726c321727a80846bf89D7CA5D5183Beb50f` | Faucet for test tokens |
-| **StakingRewards** | `[Your Address]` | Stake iUSDC, earn REWARD |
+| **StakingRewards** | `0xEe81F398021fA1E0EeB97329118265bCBDA97ECC` | Stake iUSDC, earn REWARD | (ongoing)
 | **RewardToken** | `0x4D9744786215a495B38b6EC785F79E5d3EECC1E7` | Bonus rewards token |
 
 ### Contract Overview
