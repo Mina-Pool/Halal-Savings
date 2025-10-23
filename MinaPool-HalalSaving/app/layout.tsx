@@ -2,6 +2,7 @@
 import './app/globals.css';
 import { minikitConfig } from "../minikit.config";
 import { Metadata } from "next";
+import { NavigationLoaderProvider } from "./components/NavigationLoader";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -34,7 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </head>
         <body className="min-h-dvh font-['Plus_Jakarta_Sans'] antialiased">
-          {children}
+          <NavigationLoaderProvider>
+            {children}
+          </NavigationLoaderProvider>
         </body>
       </html>
   );

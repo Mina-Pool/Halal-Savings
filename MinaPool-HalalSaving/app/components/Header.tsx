@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import LoadingLink from "./LoadingLink";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const DOCS_URL = "https://minapool.gitbook.io/minapool-docs/";
@@ -29,7 +30,7 @@ export default function Header() {
   const NavLinks = () => (
     <>
       {/* External docs */}
-      <a
+      <Link
         href={DOCS_URL}
         target="_blank"
         rel="noopener noreferrer"
@@ -37,30 +38,30 @@ export default function Header() {
         onClick={close}
       >
         Documentation
-      </a>
+      </Link>
 
       {/* Landing page sections – force navigation to home then hash */}
-      <a
+      <Link
         href="/#about"
         onClick={close}
         className="text-sm text-[#0A0B0D]/80 hover:text-[#0A0B0D]"
       >
         About
-      </a>
-      <a
+      </Link>
+      <Link
         href="/#goals"
         onClick={close}
         className="text-sm text-[#0A0B0D]/80 hover:text-[#0A0B0D]"
       >
         Goals
-      </a>
-      <a
+      </Link>
+      <Link
         href="/#moneyworks"
         onClick={close}
         className="text-sm text-[#0A0B0D]/80 hover:text-[#0A0B0D]"
       >
         Where Your Money Works
-      </a>
+      </Link>
     </>
   );
 
@@ -73,7 +74,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:py-4">
-        <Link href="/" className="flex items-center gap-2" onClick={close}>
+        <LoadingLink href="/" className="flex items-center gap-2" onClick={close}>
           <Image
             src="/MinaPoolLogo.svg"
             alt="MinaPool"
@@ -85,11 +86,18 @@ export default function Header() {
             MinaPool
           </span>
           <span className="text-xs md:text-sm opacity-70">(Beta Sepolia)</span>
-        </Link>
+        </LoadingLink>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 md:flex">
           <NavLinks />
+
+          <LoadingLink
+            href="/app"
+            className="inline-flex items-center rounded-xl bg-[#0052FF] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0052FF]/90"
+          >
+            Launch App
+          </LoadingLink>
         </nav>
 
         {/* Mobile menu button */}
@@ -155,9 +163,9 @@ export default function Header() {
                   blockchain.
                 </p>
 
+                {/* Render same links but as blocks for touch targets */}
                 <div className="space-y-3 mb-6">
-                  {/* Render same links but as blocks for touch targets */}
-                  <a
+                  <Link
                     href={DOCS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -165,37 +173,40 @@ export default function Header() {
                     onClick={close}
                   >
                     Documentation
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/#about"
                     onClick={close}
                     className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
                   >
                     About
-                  </a>
-                  <a
-                    href="/#how"
-                    onClick={close}
-                    className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
-                  >
-                    How it Works
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/#goals"
                     onClick={close}
                     className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
                   >
                     Goals
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/#moneyworks"
                     onClick={close}
                     className="block p-3 bg-white border-2 border-gray-300 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white hover:border-blue-500"
                   >
                     Where Your Money Works
-                  </a>
+                  </Link>
                 </div>
 
+                {/* CTA */}
+                <LoadingLink
+                  href="/app"
+                  onClick={close}
+                  className="block w-full text-center p-4 bg-[#0052FF] text-white rounded-xl font-semibold"
+                >
+                  Launch App →
+                </LoadingLink>
+
+                {/* Footer */}
                 <div className="mt-6 pt-6 border-t">
                   <p className="text-xs text-gray-500">
                     🕌 100% Shariah-Compliant

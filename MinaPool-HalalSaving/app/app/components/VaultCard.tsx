@@ -1,6 +1,6 @@
 'use client';
 import { formatEther } from 'viem';
-import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useReadContract } from 'wagmi';
 import { VAULT_ABI } from '@/lib/abi/vault';
 
 export default function VaultCard({
@@ -37,7 +37,7 @@ export default function VaultCard({
         <div className="text-right">
           <div className="text-xs opacity-60">Share price</div>
           <div className="text-2xl font-bold">
-            {displayed ? Number(formatEther(displayed)).toFixed(6) : '—'}
+            {displayed ? Number(formatEther(displayed)).toFixed(2) : '—'}
           </div>
         </div>
       </div>

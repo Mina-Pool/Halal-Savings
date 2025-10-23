@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LoadingLink from "./LoadingLink";
 import Image from "next/image";
 
 export default function Footer() {
@@ -37,12 +37,12 @@ export default function Footer() {
             >
               Disclaimer
             </a>
-            <Link
+            <LoadingLink
               href="/app"
               className="inline-flex items-center rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#0A0B0D] hover:opacity-90"
             >
               Launch App
-            </Link>
+            </LoadingLink>
           </div>
         </div>
 

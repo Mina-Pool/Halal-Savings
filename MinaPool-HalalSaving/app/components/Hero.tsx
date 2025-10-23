@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import LoadingLink from "./LoadingLink";
 
 const CONTRACT = "0x4D9744786215a495B38b6EC785F79E5d3EECC1E7";
 const BASESCAN = `https://sepolia.basescan.org/address/${CONTRACT}`;
@@ -83,13 +84,13 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
+            <LoadingLink
               href="/app"
               className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold hover:opacity-50"
               style={{ backgroundColor: BLUE, color: WHITE, border: `1px solid ${BLUE}` }}
             >
               Launch App
-            </Link>
+            </LoadingLink>
 
             <Link
               href="/#About"

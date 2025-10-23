@@ -86,7 +86,7 @@ export default function Home() {
     : '0';
 
   const formattedIusdcBalance = iusdcBalance
-    ? Number(formatEther(iusdcBalance as bigint)).toFixed(4)
+    ? Number(formatEther(iusdcBalance as bigint)).toFixed(2)
     : '0';
 
   if (!mounted) {
@@ -120,7 +120,7 @@ export default function Home() {
             <div className="card p-5">
               <div className="text-xs opacity-60 mb-1">Share Price</div>
               <div className="text-2xl font-bold">
-                {sp ? Number(formatEther(sp as bigint)).toFixed(6) : '—'}
+                {sp ? Number(formatEther(sp as bigint)).toFixed(2) : '—'}
               </div>
               <div className="text-xs opacity-60 mt-1">USDC per iUSDC</div>
             </div>
@@ -178,7 +178,7 @@ export default function Home() {
           <div className="card p-7">
             <div className="text-xs opacity-60">Current share price</div>
             <div className="mt-2 text-4xl font-bold">
-              {sp ? Number(formatEther(sp as bigint)).toFixed(6) : '—'}
+              {sp ? Number(formatEther(sp as bigint)).toFixed(2) : '—'}
             </div>
             <div className="mt-4 text-sm opacity-70">
               1 iUSDC × SharePrice = redeemable USDC.

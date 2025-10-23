@@ -7,30 +7,13 @@ import Header from "@/app/app/components/Header";
 import { ERC20_ABI } from "@/lib/abi/erc20";
 import { VAULT_ABI } from "@/lib/abi/vault";
 import { HALAL_SAVINGS_V2_ABI, CONTRACTS } from "@/contracts/config";
-import Link from "next/link";
+import LoadingLink from "@/app/components/LoadingLink";
 
 const vault = CONTRACTS.IUSDC_VAULT;
 const asset = CONTRACTS.MOCK_USDC;
 const savings = CONTRACTS.HALAL_SAVINGS_V2;
 const mina = CONTRACTS.MINA_TOKEN;
 
-type UserStats = {
-  totalDeposited: bigint;
-  totalWithdrawn: bigint;
-  streakMonths: bigint;
-  lastDepositTime: bigint;
-  profitShareClaimed: bigint;
-  goalsCreated: bigint;
-  goalsCompleted: bigint;
-};
-const GOAL_TYPES = [
-  "Hajj",
-  "Umrah",
-  "Qurban",
-  "Education",
-  "Wedding",
-  "General",
-];
 
 export default function ReportsPage() {
   const [mounted, setMounted] = useState(false);
@@ -43,7 +26,6 @@ export default function ReportsPage() {
   const wagmiConfig = useConfig();
 
   const [goalData, setGoalData] = useState<any>(null);
-  const decimals = { asset: 6, iAsset: 18 };
 
   const { data: assetDecimals } = useReadContract({
     address: asset,
@@ -131,13 +113,13 @@ export default function ReportsPage() {
 
   // Format values
   const formattedSharePrice = sharePrice
-    ? Number(formatEther(sharePrice as bigint)).toFixed(6)
+    ? Number(formatEther(sharePrice as bigint)).toFixed(2)
     : "0";
   const formattedUsdcBalance = usdcBalance
     ? Number(formatUnits(usdcBalance as bigint, ASSET_DECIMALS)).toFixed(2)
     : "0";
   const formattedIusdcBalance = iusdcBalance
-    ? Number(formatUnits(iusdcBalance as bigint, VAULT_DECIMALS)).toFixed(4)
+    ? Number(formatUnits(iusdcBalance as bigint, VAULT_DECIMALS)).toFixed(2)
     : "0";
   const formattedMinaBalance = minaBalance
     ? Number(formatEther(minaBalance as bigint)).toFixed(2)
@@ -513,14 +495,14 @@ export default function ReportsPage() {
             <section>
               <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <Link
+                <LoadingLink
                   href="/"
                   className="card p-5 hover:shadow-lg transition-shadow"
                 >
                   <div className="text-2xl mb-2">💵</div>
                   <div className="font-semibold mb-1">Deposit USDC</div>
                   <div className="text-xs opacity-70">Convert to iUSDC</div>
-                </Link>
+                </LoadingLink>
 
                 <a
                   href="/savings"
