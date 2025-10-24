@@ -106,6 +106,7 @@ export default function Home() {
   if (isSuccess) {
     refetchUsdc();
     refetchIusdc();
+    console.log("Refetched balances after transaction success.");
   }
 }, [isSuccess, refetchUsdc, refetchIusdc]);
   if (!mounted) {
