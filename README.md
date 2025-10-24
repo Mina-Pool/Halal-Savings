@@ -12,7 +12,7 @@
 [![Base Sepolia](https://img.shields.io/badge/Network-Base%20Sepolia-blue)](https://sepolia.basescan.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Live App](https://halal-savings.vercel.app) • [Documentation](https://docs.minapool.com) • [Twitter](https://twitter.com/MinaPoolHQ)
+[Live App](https://halal-savings.vercel.app) • [Documentation](https://minapool.gitbook.io/minapool-docs/) • [Twitter](https://twitter.com/MinaPoolHQ)
 
 </div>
 
